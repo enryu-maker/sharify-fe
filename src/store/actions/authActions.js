@@ -93,3 +93,16 @@ export const verifyAction = (data, setLoading, navigate) => {
             })
     }
 }
+
+export const logoutAction = (navigate) => {
+
+    return async (dispatch) => {
+        localStorage.clear()
+        dispatch({
+            type: "USER_ACCESS",
+            payload: null
+        })
+        navigate('/login')
+        
+    }
+}

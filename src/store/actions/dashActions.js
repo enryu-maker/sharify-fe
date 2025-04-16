@@ -292,7 +292,7 @@ export const getFile = (setLoading) => {
         await axiosCustomer
             .get(baseURL + '/v1/sharedata/get-files/')
             .then((res) => {
-                console.log(res?.data)
+                console.log("shared to me",res?.data)
                 setLoading(false)
                 dispatch({
                     type: 'USER_FILES',
@@ -323,7 +323,7 @@ export const getSharedFile = (setLoading) => {
         await axiosCustomer
             .get(baseURL + '/v1/sharedata/get-shared-files/')
             .then((res) => {
-                console.log(res?.data)
+                console.log("data",res?.data)
                 setLoading(false)
                 dispatch({
                     type: 'USER_SHARED_FILES',

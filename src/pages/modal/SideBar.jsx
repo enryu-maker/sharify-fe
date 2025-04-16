@@ -1,6 +1,11 @@
 import React from 'react'
 import { LuLayoutDashboard, LuSettings, LuLogOut } from "react-icons/lu";
+import { useDispatch } from 'react-redux';
+import { logoutAction } from '../../store/actions/authActions';
+import { useNavigate } from 'react-router-dom';
 export default function SideBar() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     return (
         <div className='w-[20%]  h-full flex flex-col font-inter justify-start space-y-4 items-center border-r'>
             <h1 className=' font-medium font-inter text-3xl tracking-widest text-blue-500 w-[88%] mt-5'>
@@ -13,7 +18,11 @@ export default function SideBar() {
                 <a className=' hover:underline transition-all duration-700 space-x-2 flex items-center cursor-pointer'>
                     <LuSettings /> <span>Settings</span>
                 </a>
-                <a className=' hover:underline transition-all text-red-500 duration-700 space-x-2 flex items-center cursor-pointer'>
+                <a 
+                onClick={()=>{
+                    dispatch(logoutAction(navigate))
+                }}
+                className=' hover:underline transition-all text-red-500 duration-700 space-x-2 flex items-center cursor-pointer'>
                     <LuLogOut /> <span>Logout</span>
                 </a>
             </div>

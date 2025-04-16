@@ -87,7 +87,7 @@ export default function Dashboard() {
                             <div className=" bg-white w-full h-full p-5 flex flex-wrap justify-between px-5">
                                 {
                                     files.map((item, index) => (
-                                        <Card key={index} />
+                                        <Card key={index} item={item} />
                                     ))
                                 }
                             </div>
