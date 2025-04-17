@@ -3,6 +3,7 @@ import { image } from '../../assets/image';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerAction } from '../../store/actions/authActions';
+import CamModel from './CamModel';
 
 export default function Signup() {
     const [data, setData] = React.useState({
@@ -14,6 +15,8 @@ export default function Signup() {
         login_method: 1
     })
     const [loading, setLoading] = React.useState(false)
+    const [show, setShow] = React.useState(false)
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
     return (
@@ -26,6 +29,7 @@ export default function Signup() {
                     className=' w-full text-center font-body text-2xl'>
                     Signup to <span className='font-head underline  text-blue-500'>Continue</span> !
                 </p>
+                {show&&<CamModel setShow={setShow}/>}
                 <div className=' w-full flex flex-col justify-center items-center space-y-4'>
                     <input
                         placeholder='Enter Your Name'
@@ -72,6 +76,13 @@ export default function Signup() {
                             setData({ ...data, password: e.target.value })
                         }}
                     />
+                    <button
+                    onClick={()=>{
+                        setShow(!show)
+                    }}
+                    >
+                        Face Data (optional)
+                    </button>
                     <button
                         onClick={() => {
                             dispatch(registerAction(data, setLoading))
