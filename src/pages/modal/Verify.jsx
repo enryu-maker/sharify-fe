@@ -2,15 +2,22 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { verifyAction } from '../../store/actions/authActions'
 import { useNavigate } from 'react-router-dom'
+import Webcam from "react-webcam";
 
 export default function Verify({
     qr,
     data
 }) {
     const [otp, steOtp] = React.useState(0)
+    const [faceData, setFaceData] = React.useState(null)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [loading, setLoading] = React.useState(false)
+    const videoConstraints = {
+        width: 1280,
+        height: 720,
+        facingMode: "user"
+    };
 
     return (
         <div class="fixed inset-0 p-4 flex flex-wrap justify-center items-center font-inter w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto ">
@@ -52,11 +59,34 @@ export default function Verify({
                         maxLength={6}
                         className="w-[88%] text-lg text-gray-800 border font-body border-gray-300 px-4 py-2 rounded-lg outline-none self-start"
                     />
+                    <div class="my-6">
+                        <p className="text-sm py-1 text-left w-full">
+                            please take a selfie to verify your identity
+                        </p>
+                        <Webcam
+                            audio={false}
+                            height={720}
+                            screenshotFormat="image/jpeg"
+                            width={1280}
+                            videoConstraints={videoConstraints}
+
+                        >
+                            {({ getScreenshot }) => (
+                                <button type="button"
+                                    onClick={() => {
+                                        const imageSrc = getScreenshot()
+                                        setFaceData(imageSrc);
+                                    }}
+                                    class="px-4 py-2 rounded-lg mt-5 text-white text-sm font-medium border-none outline-none tracking-wide bg-blue-600 hover:bg-blue-700 active:bg-blue-600">Save</button>
+                            )}
+                        </Webcam>
+                    </div>
                 </div>
 
                 <button
                     onClick={() => {
                         data["otp"] = otp
+                        data["face_image_base64"] = faceData
                         dispatch(verifyAction(data, setLoading, navigate))
                     }}
                     className=' w-[88%] px-5 py-1 bg-blue-500 rounded-lg self-start'>

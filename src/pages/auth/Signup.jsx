@@ -16,6 +16,7 @@ export default function Signup() {
     })
     const [loading, setLoading] = React.useState(false)
     const [show, setShow] = React.useState(false)
+    const [faceData, setFaceData] = React.useState(null)
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -29,7 +30,7 @@ export default function Signup() {
                     className=' w-full text-center font-body text-2xl'>
                     Signup to <span className='font-head underline  text-blue-500'>Continue</span> !
                 </p>
-                {show&&<CamModel setShow={setShow}/>}
+                {show && <CamModel setShow={setShow} setFaceData={setFaceData} />}
                 <div className=' w-full flex flex-col justify-center items-center space-y-4'>
                     <input
                         placeholder='Enter Your Name'
@@ -77,14 +78,15 @@ export default function Signup() {
                         }}
                     />
                     <button
-                    onClick={()=>{
-                        setShow(!show)
-                    }}
+                        onClick={() => {
+                            setShow(!show)
+                        }}
                     >
-                        Face Data (optional)
+                        Face Data
                     </button>
                     <button
                         onClick={() => {
+                            data.face_image_base64 = faceData
                             dispatch(registerAction(data, setLoading))
                         }}
                         className=' w-[88%] px-5 py-1 bg-blue-500 rounded-lg'>

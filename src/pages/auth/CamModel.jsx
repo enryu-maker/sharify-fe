@@ -1,7 +1,8 @@
 import React from 'react'
 import Webcam from "react-webcam";
 export default function CamModel({
-    setShow
+    setShow,
+    setFaceData,
 }) {
     const videoConstraints = {
         width: 1280,
@@ -16,11 +17,11 @@ export default function CamModel({
                     <div class="w-full max-w-lg bg-white shadow-lg rounded-lg p-6 relative">
                         <div class="flex items-center pb-3 border-b border-gray-300">
                             <h3 class="text-slate-900 text-xl font-semibold flex-1">Face Data</h3>
-                            <svg 
-                            onClick={()=>{
-                                setShow(false)
-                            }}
-                            id="closeIcon" xmlns="http://www.w3.org/2000/svg"
+                            <svg
+                                onClick={() => {
+                                    setShow(false)
+                                }}
+                                id="closeIcon" xmlns="http://www.w3.org/2000/svg"
                                 class="w-3.5 h-3.5 ml-2 cursor-pointer shrink-0 fill-gray-400 hover:fill-red-500"
                                 viewBox="0 0 320.591 320.591">
                                 <path
@@ -42,10 +43,12 @@ export default function CamModel({
                             >
                                 {({ getScreenshot }) => (
                                     <button type="button"
-                                    onClick={() => {
-                                        const imageSrc = getScreenshot()
-                                    }}
-                                    class="px-4 py-2 rounded-lg text-white text-sm font-medium border-none outline-none tracking-wide bg-blue-600 hover:bg-blue-700 active:bg-blue-600">Save</button>
+                                        onClick={() => {
+                                            const imageSrc = getScreenshot()
+                                            setFaceData(imageSrc);
+                                            setShow(false)
+                                        }}
+                                        class="px-4 py-2 rounded-lg mt-5 text-white text-sm font-medium border-none outline-none tracking-wide bg-blue-600 hover:bg-blue-700 active:bg-blue-600">Save</button>
                                 )}
                             </Webcam>
                         </div>
