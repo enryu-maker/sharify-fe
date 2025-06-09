@@ -4,10 +4,12 @@ import { Route, Routes } from 'react-router-dom'
 import Signup from './pages/auth/Signup'
 import Verify from './pages/modal/Verify'
 import Dashboard from './pages/home/Dashboard'
+import Home from './pages/auth/Home'
 
 export default function App() {
   return (
     <Routes>
+      <Route path='/' element={<Home />} />
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Signup />} />
       <Route path='/verify' element={<Verify />} />
